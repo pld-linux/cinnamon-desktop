@@ -1,7 +1,7 @@
-%define gtk3_version                      3.10.0
-%define startup_notification_version      0.5
-%define gtk_doc_version                   1.9
-%define po_package                        cinnamon-desktop-3.0
+%define gtk3_version 3.3.6
+%define startup_notification_version 0.5
+%define gtk_doc_version 1.9
+%define glib2_version 1:2.32
 Summary:	Shared code among cinnamon-session, nemo, etc
 Name:		cinnamon-desktop
 Version:	2.4.2
@@ -12,15 +12,21 @@ Source0:	https://github.com/linuxmint/cinnamon-desktop/archive/%{version}/%{name
 # Source0-md5:	22d78e5c86135b65231b62b15ede27b7
 Patch0:		set_font_defaults.patch
 URL:		http://cinnamon.linuxmint.com/
+BuildRequires:	gdk-pixbuf2-devel >= 2.21.3
+BuildRequires:	gettext-devel
+BuildRequires:	glib2-devel >= %{glib2_version}
 BuildRequires:	gnome-common
 BuildRequires:	gobject-introspection-devel
 BuildRequires:	gtk+3-devel >= %{gtk3_version}
-BuildRequires:	gtk-doc >= %{gtk_doc_version}
 BuildRequires:	intltool
-BuildRequires:	itstool
-BuildRequires:	startup-notification-devel >= %{startup_notification_version}
+BuildRequires:	libtool
+BuildRequires:	pkg-config >= 0.14.0
+BuildRequires:	rpm-pythonprov
 BuildRequires:	xkeyboard-config
+BuildRequires:	xorg-lib-libXext-devel >= 1.1
+BuildRequires:	xorg-lib-libXrandr-devel >= 1.3
 BuildRequires:	xorg-lib-libxkbfile-devel
+Requires(post):	/sbin/ldconfig
 Requires:	applnk
 Requires:	glib2 >= 1:2.26.0
 Requires:	hwdata
@@ -69,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libcinnamon-desktop.la
 
-%find_lang %{po_package} --all-name --with-gnome
+%find_lang cinnamon-desktop-3.0 --all-name --with-gnome
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -85,7 +91,7 @@ fi
 %posttrans
 %glib_compile_schemas
 
-%files -f %{po_package}.lang
+%files -f cinnamon-desktop-3.0.lang
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING COPYING.LIB README
 %attr(755,root,root) %{_bindir}/cinnamon-desktop-migrate-mediakeys
