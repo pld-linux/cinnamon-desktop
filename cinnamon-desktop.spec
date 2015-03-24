@@ -25,7 +25,7 @@ Requires:	applnk
 Requires:	glib2 >= 1:2.26.0
 Requires:	hwdata
 # Make sure to update libgnome schema when changing this
-Requires:	system-backgrounds-gnome
+#Requires:	system-backgrounds-gnome
 # Make sure that gnome-themes-standard gets pulled in for upgrades
 Requires:	gnome-themes-standard
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
