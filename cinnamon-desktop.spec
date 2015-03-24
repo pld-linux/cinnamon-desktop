@@ -22,6 +22,7 @@ BuildRequires:	startup-notification-devel >= %{startup_notification_version}
 BuildRequires:	xkeyboard-config
 BuildRequires:	xorg-lib-libxkbfile-devel
 Requires:	applnk
+Requires:	hwdata
 # Make sure to update libgnome schema when changing this
 Requires:	system-backgrounds-gnome
 # Make sure that gnome-themes-standard gets pulled in for upgrades
