@@ -28,6 +28,7 @@ BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.14.0
 BuildRequires:	pulseaudio-devel
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	xkeyboard-config
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel >= 1.1
