@@ -1,28 +1,30 @@
+#
+# Conditional build:
+%bcond_without	alsa	# ALSA support (in addition to Pulseaudio)
+
 %define		glib_ver	1:2.37.3
 %define		gtk_ver		3.3.16
 
 Summary:	The cinnamon-desktop libraries (and common settings schemas for the cinnamon desktop)
 Summary(pl.UTF-8):	Biblioteki cinnamon-desktop (i wspólne schematy ustawień dla środowiska cinnamon)
 Name:		cinnamon-desktop
-Version:	3.4.2
+Version:	4.0.1
 Release:	1
 License:	GPL v2+ (libcvc), LGPL v2.1+ (libcinnamon-desktop)
 Group:		X11/Applications
 #Source0Download: https://github.com/linuxmint/cinnamon-desktop/releases
 Source0:	https://github.com/linuxmint/cinnamon-desktop/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	db689f777868962c66a0a03a4a24c6a7
+# Source0-md5:	856ae11014fac1c1233b2863dd21428c
 Patch0:		set_font_defaults.patch
 URL:		http://cinnamon.linuxmint.com/
-BuildRequires:	accountsservice-devel
-BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake >= 1:1.11
+%{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	gdk-pixbuf2-devel >= 2.22.0
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= %{glib_ver}
 BuildRequires:	gobject-introspection-devel >= 0.9.7
 BuildRequires:	gtk+3-devel >= %{gtk_ver}
-BuildRequires:	intltool >= 0.40.6
-BuildRequires:	libtool >= 2:2.2.6
+BuildRequires:	meson >= 0.37.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.14.0
 BuildRequires:	pulseaudio-devel
 BuildRequires:	rpm-pythonprov
@@ -97,26 +99,16 @@ Pliki nagłówkowe bibliotek cinnamon-desktop.
 %patch0 -p1
 
 %build
-%{__glib_gettextize}
-%{__intltoolize}
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	--disable-silent-rules \
-	--disable-static \
-	--with-pnp-ids-path="%{_datadir}/hwdata/pnp.ids"
+%meson build \
+	%{?with_alsa:-Dalsa=true} \
+	-Dpnp_ids="/lib/hwdata/pnp.ids"
 
-%{__make}
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libc*.la
+%ninja_install -C build
 
 %find_lang cinnamon-desktop
 
@@ -136,7 +128,7 @@ fi
 
 %files -f cinnamon-desktop.lang
 %defattr(644,root,root,755)
-%doc AUTHORS README
+%doc AUTHORS MAINTAINERS README
 %attr(755,root,root) %{_bindir}/cinnamon-desktop-migrate-mediakeys
 %{_datadir}/glib-2.0/schemas/org.cinnamon.desktop.enums.xml
 %{_datadir}/glib-2.0/schemas/org.cinnamon.desktop.*.gschema.xml
