@@ -8,22 +8,23 @@
 Summary:	The cinnamon-desktop libraries (and common settings schemas for the cinnamon desktop)
 Summary(pl.UTF-8):	Biblioteki cinnamon-desktop (i wspólne schematy ustawień dla środowiska cinnamon)
 Name:		cinnamon-desktop
-Version:	4.0.1
+Version:	4.4.1
 Release:	1
 License:	GPL v2+ (libcvc), LGPL v2.1+ (libcinnamon-desktop)
 Group:		X11/Applications
 #Source0Download: https://github.com/linuxmint/cinnamon-desktop/releases
 Source0:	https://github.com/linuxmint/cinnamon-desktop/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	856ae11014fac1c1233b2863dd21428c
+# Source0-md5:	4b92d072b37bf61efb4ccad4f2b37435
 Patch0:		set_font_defaults.patch
-URL:		http://cinnamon.linuxmint.com/
+Patch1:		%{name}-theme-paths.patch
+URL:		https://github.com/linuxmint/cinnamon
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
 BuildRequires:	gdk-pixbuf2-devel >= 2.22.0
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= %{glib_ver}
 BuildRequires:	gobject-introspection-devel >= 0.9.7
 BuildRequires:	gtk+3-devel >= %{gtk_ver}
-BuildRequires:	meson >= 0.37.0
+BuildRequires:	meson >= 0.41.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.14.0
 BuildRequires:	pulseaudio-devel
@@ -37,11 +38,8 @@ BuildRequires:	xorg-lib-libxkbfile-devel
 Requires(post,postun):	glib2 >= %{glib_ver}
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	applnk
+Requires:	gnome-backgrounds >= 3
 Requires:	hwdata
-# Make sure to update libgnome schema when changing this
-#Requires:	system-backgrounds-gnome
-# Make sure that gnome-themes-standard gets pulled in for upgrades
-Requires:	gnome-themes-standard
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -98,6 +96,7 @@ Pliki nagłówkowe bibliotek cinnamon-desktop.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %meson build \
@@ -130,7 +129,6 @@ fi
 %files -f cinnamon-desktop.lang
 %defattr(644,root,root,755)
 %doc AUTHORS MAINTAINERS README
-%attr(755,root,root) %{_bindir}/cinnamon-desktop-migrate-mediakeys
 %{_datadir}/glib-2.0/schemas/org.cinnamon.desktop.enums.xml
 %{_datadir}/glib-2.0/schemas/org.cinnamon.desktop.*.gschema.xml
 
