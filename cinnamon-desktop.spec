@@ -8,13 +8,13 @@
 Summary:	The cinnamon-desktop libraries (and common settings schemas for the cinnamon desktop)
 Summary(pl.UTF-8):	Biblioteki cinnamon-desktop (i wspólne schematy ustawień dla środowiska cinnamon)
 Name:		cinnamon-desktop
-Version:	4.4.1
+Version:	4.6.0
 Release:	1
 License:	GPL v2+ (libcvc), LGPL v2.1+ (libcinnamon-desktop)
 Group:		X11/Applications
 #Source0Download: https://github.com/linuxmint/cinnamon-desktop/releases
 Source0:	https://github.com/linuxmint/cinnamon-desktop/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	4b92d072b37bf61efb4ccad4f2b37435
+# Source0-md5:	a319f883ad1c054969a6e22fa590ca72
 Patch0:		set_font_defaults.patch
 Patch1:		%{name}-theme-paths.patch
 URL:		https://github.com/linuxmint/cinnamon
