@@ -128,7 +128,7 @@ fi
 
 %files -f cinnamon-desktop.lang
 %defattr(644,root,root,755)
-%doc AUTHORS MAINTAINERS README
+%doc AUTHORS MAINTAINERS README debian/changelog
 %{_datadir}/glib-2.0/schemas/org.cinnamon.desktop.enums.xml
 %{_datadir}/glib-2.0/schemas/org.cinnamon.desktop.*.gschema.xml
 
