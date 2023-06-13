@@ -8,13 +8,13 @@
 Summary:	The cinnamon-desktop libraries (and common settings schemas for the cinnamon desktop)
 Summary(pl.UTF-8):	Biblioteki cinnamon-desktop (i wspólne schematy ustawień dla środowiska cinnamon)
 Name:		cinnamon-desktop
-Version:	5.0.0
+Version:	5.8.0
 Release:	1
 License:	GPL v2+ (libcvc), LGPL v2.1+ (libcinnamon-desktop)
 Group:		X11/Applications
-#Source0Download: https://github.com/linuxmint/cinnamon-desktop/releases
+#Source0Download: https://github.com/linuxmint/cinnamon-desktop/tags
 Source0:	https://github.com/linuxmint/cinnamon-desktop/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	206bdb82b6d69dba2d199546b7f9acbf
+# Source0-md5:	cde124596a427145f001b33a9d77f183
 Patch0:		set_font_defaults.patch
 Patch1:		%{name}-theme-paths.patch
 URL:		https://github.com/linuxmint/cinnamon
@@ -24,7 +24,7 @@ BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= %{glib_ver}
 BuildRequires:	gobject-introspection-devel >= 0.9.7
 BuildRequires:	gtk+3-devel >= %{gtk_ver}
-BuildRequires:	meson >= 0.41.0
+BuildRequires:	meson >= 0.50.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig >= 1:0.14.0
 BuildRequires:	pulseaudio-devel
