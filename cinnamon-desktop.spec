@@ -99,16 +99,16 @@ Pliki nagłówkowe bibliotek cinnamon-desktop.
 %patch -P1 -p1
 
 %build
-%meson build \
+%meson \
 	%{?with_alsa:-Dalsa=true} \
 	-Dpnp_ids="/lib/hwdata/pnp.ids"
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %find_lang cinnamon-desktop
 
